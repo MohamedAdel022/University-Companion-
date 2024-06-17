@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:test/screens/home_screen.dart';
 import 'package:test/screens/sign_up.dart';
 import 'package:test/widgets/check_box.dart';
 import 'package:test/widgets/custom_text_field.dart';
@@ -95,6 +96,13 @@ class RegisterForm extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         // Handle login
+                          Navigator.push(
+                            context,
+                            
+                            MaterialPageRoute(
+                                builder: (context) => const MyHomePage()),
+                          );
+                      
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,

@@ -11,7 +11,6 @@ class LoginScreen extends StatelessWidget {
       body: Stack(
         children: [
           BackGround(), // Background gradient
-          
           RegisterForm(), // Form
         
         ],
