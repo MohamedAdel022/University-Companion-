@@ -10,7 +10,18 @@ class ChatPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Chats'),
+          automaticallyImplyLeading: false,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: ShaderMask(
+                shaderCallback: (bounds) => const LinearGradient(
+                      colors: [Colors.blue, Colors.purpleAccent],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ).createShader(bounds),
+                child: const Text('Chats',
+                    style: TextStyle(fontSize: 24, color: Colors.white))),
+          ),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Group Chats'),
