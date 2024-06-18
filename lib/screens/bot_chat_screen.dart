@@ -1,13 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen(
-      {super.key,
-      required this.icon,
-      required this.name,
-      required this.description});
+  const ChatScreen({
+    super.key,
+    required this.icon,
+    required this.name,
+    required this.description,
+  });
   final String icon;
   final String name;
   final String description;
@@ -21,7 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
     {
       'sender': 'bot',
       'text': 'Hello! How can I help you today?',
-      'displayedText': ''
+      'displayedText': 'Hello! How can I help you today?',
     },
     // Add more initial messages here if needed
   ];
@@ -29,6 +29,15 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    // Add a small delay before starting the typing animation for the description
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _simulateBotResponse(widget.description);
+    });
+  }
 
   @override
   void dispose() {
@@ -56,7 +65,9 @@ class _ChatScreenState extends State<ChatScreen> {
       'text': responseText,
       'displayedText': ''
     };
-    messages.add(response);
+    setState(() {
+      messages.add(response);
+    });
     int currentIndex = messages.length - 1;
 
     int charIndex = 0;
@@ -113,17 +124,31 @@ class _ChatScreenState extends State<ChatScreen> {
                   alignment:
                       isBot ? Alignment.centerLeft : Alignment.centerRight,
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isBot ? Colors.purple[50] : Colors.purple[100],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 16),
-                    child: Text(
-                      message['displayedText']!,
-                      style: const TextStyle(color: Colors.black),
-                    ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (isBot)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Image.asset(widget.icon,
+                              width: 20, height: 20), // Bot icon
+                        ),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color:
+                                isBot ? Colors.purple[50] : Colors.purple[100],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 16),
+                          child: Text(
+                            message['displayedText']!,
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },

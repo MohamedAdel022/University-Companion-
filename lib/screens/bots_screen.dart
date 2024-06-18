@@ -98,11 +98,18 @@ class BotsScreen extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                tool.icon,
-                                width: 64,
-                                height: 64,
-                                color: Colors.purple,
+                              ShaderMask(
+                                shaderCallback: (bounds) {
+                                  return const LinearGradient(
+                                    colors: [Colors.white, Colors.purple],
+                                  ).createShader(bounds);
+                                },
+                                child: Image.asset(
+                                  tool.icon,
+                                  width: 64,
+                                  height: 64,
+                                  color: Colors.purple,
+                                ),
                               ),
                               const SizedBox(height: 8),
                               Text(
@@ -133,12 +140,10 @@ class BotsScreen extends StatelessWidget {
                   return Card(
                     color: Colors.purple[50],
                     child: ListTile(
-                      leading: const Icon(
-                        Icons.error,
-                        color: Colors.purple,
-                      ),
                       title: Text(item['title']!),
                       subtitle: Text(item['description']!),
+                      trailing:
+                          const Icon(Icons.delete, color: Colors.deepPurple),
                     ),
                   );
                 },
