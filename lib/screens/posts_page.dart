@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/screens/add_post.dart';
 import 'package:test/screens/comments_page.dart';
+import 'package:test/widgets/background.dart';
 
 class PostPage extends StatelessWidget {
   final List<Map<String, dynamic>> posts = [
@@ -37,17 +38,20 @@ class PostPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          return PostCard(
-            author: posts[index]['author']!,
-            content: posts[index]['content']!,
-            time: posts[index]['time']!,
-            imageUrl: posts[index]['imageUrl'],
-          );
-        },
-      ),
+      body: Stack(children: [
+        const BackGround(),
+        ListView.builder(
+          itemCount: posts.length,
+          itemBuilder: (context, index) {
+            return PostCard(
+              author: posts[index]['author']!,
+              content: posts[index]['content']!,
+              time: posts[index]['time']!,
+              imageUrl: posts[index]['imageUrl'],
+            );
+          },
+        ),
+      ]),
     );
   }
 }

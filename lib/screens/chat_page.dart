@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/screens/dm_chat.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -50,7 +51,7 @@ class ChatList extends StatelessWidget {
 
   final List<Map<String, String>> dmChats = [
     {
-      'name': 'Alice',
+      'name': 'Mido',
       'message': 'Let’s catch up later.',
       'time': '2:45 PM',
       'imageUrl': 'https://via.placeholder.com/150',
@@ -70,11 +71,19 @@ class ChatList extends StatelessWidget {
     return ListView.builder(
       itemCount: chats.length,
       itemBuilder: (context, index) {
-        return ChatCard(
-          name: chats[index]['name']!,
-          message: chats[index]['message']!,
-          time: chats[index]['time']!,
-          imageUrl: chats[index]['imageUrl']!,
+        return GestureDetector(
+          onTap: () {
+            // Navigate to Chat Detail Page
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return ChatScreen();
+            }));
+          },
+          child: ChatCard(
+            name: chats[index]['name']!,
+            message: chats[index]['message']!,
+            time: chats[index]['time']!,
+            imageUrl: chats[index]['imageUrl']!,
+          ),
         );
       },
     );
@@ -117,6 +126,9 @@ class ChatCard extends StatelessWidget {
           ),
           onTap: () {
             // Navigate to Chat Detail Page
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return ChatScreen();
+            }));
           },
         ),
       ),
