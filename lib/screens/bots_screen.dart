@@ -82,7 +82,12 @@ class BotsScreen extends StatelessWidget {
                         // Navigate to the tool screen
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return const ChatScreen();
+                          return ChatScreen(
+                            // Change this to the tool screen
+                            name: tool.name,
+                            description: tool.description,
+                            icon: tool.icon,
+                          );
                         }));
                       },
                       child: Card(

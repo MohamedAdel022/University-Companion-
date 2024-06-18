@@ -3,7 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen(
+      {super.key,
+      required this.icon,
+      required this.name,
+      required this.description});
+  final String icon;
+  final String name;
+  final String description;
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -84,7 +91,14 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat with Bot'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(widget.icon, width: 20, height: 20),
+            const SizedBox(width: 12),
+            Text(widget.name),
+          ],
+        ),
       ),
       body: Column(
         children: [
