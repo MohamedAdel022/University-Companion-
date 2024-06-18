@@ -2,18 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:test/screens/bot_chat_screen.dart';
 
 class BotsScreen extends StatelessWidget {
-  final List<Map<String, String>> eliteTools = [
-    {
-      'title': 'AI Image Generator',
-      'description': 'Turn words into images',
-      'icon': 'image'
-    },
-    {
-      'title': 'Browsing Chat',
-      'description': 'Get most recent answers with web search',
-      'icon': 'language'
-    },
-    // Add more tools here
+  final List<Bot> eliteTools = [
+    Bot(
+        name: 'Genral chatbot',
+        description: 'Real-time chat with a bot',
+        icon: 'image'),
+    Bot(
+        name: 'Curriculum chatbot',
+        description: 'Translate text to different languages',
+        icon: 'language'),
+    Bot(
+      name: 'summarization chatbot',
+      description: 'Summarize text to the main points',
+      icon: 'language',
+    ),
+    Bot(
+        name: 'improve writing chatbot',
+        description: 'Check grammar and spelling mistakes',
+        icon: 'language'),
+    Bot(
+        name: 'create quizes chatbot',
+        description: 'Create quizzes for your students',
+        icon: 'language'),
+    Bot(
+        name: 'evaluate quizes chatbot',
+        description: 'Evaluate quizzes for your students',
+        icon: 'language'),
   ];
 
   final List<Map<String, String>> history = [
@@ -71,7 +85,7 @@ class BotsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
-                                tool['icon'] == 'image'
+                                tool.icon == 'image'
                                     ? Icons.image
                                     : Icons.language,
                                 size: 50,
@@ -79,10 +93,10 @@ class BotsScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                tool['title']!,
+                                tool.name,
                                 style: const TextStyle(color: Colors.purple),
                               ),
-                              Text(tool['description']!),
+                              Text(tool.description),
                             ],
                           ),
                         ),
@@ -122,4 +136,12 @@ class BotsScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class Bot {
+  String name;
+  String description;
+  String icon;
+
+  Bot({required this.name, required this.description, required this.icon});
 }
