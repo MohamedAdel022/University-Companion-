@@ -2,32 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:test/screens/bot_chat_screen.dart';
 
 class BotsScreen extends StatelessWidget {
+  final List<String> bots = [
+    'General chatbot',
+    'Curriculum chatbot',
+    'Summarization chatbot',
+    'Improve writing chatbot',
+    'Create quizzes chatbot',
+    'Evaluate quizzes chatbot',
+  ];
+
   final List<Bot> eliteTools = [
     Bot(
         name: 'Genral chatbot',
         description: 'Real-time chat with a bot',
-        icon: 'image'),
+        icon: 'assets/bot/chatbot.png'),
     Bot(
         name: 'Curriculum chatbot',
         description: 'Translate text to different languages',
-        icon: 'language'),
+        icon: 'assets/bot/bot (1).png'),
     Bot(
       name: 'summarization chatbot',
       description: 'Summarize text to the main points',
-      icon: 'language',
+      icon: 'assets/bot/web.png',
     ),
     Bot(
         name: 'improve writing chatbot',
         description: 'Check grammar and spelling mistakes',
-        icon: 'language'),
+        icon: 'assets/bot/ai-writing.png'),
     Bot(
         name: 'create quizes chatbot',
         description: 'Create quizzes for your students',
-        icon: 'language'),
+        icon: 'assets/bot/robot.png'),
     Bot(
         name: 'evaluate quizes chatbot',
         description: 'Evaluate quizzes for your students',
-        icon: 'language'),
+        icon: 'assets/bot/robot (1).png'),
   ];
 
   final List<Map<String, String>> history = [
@@ -84,11 +93,10 @@ class BotsScreen extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                tool.icon == 'image'
-                                    ? Icons.image
-                                    : Icons.language,
-                                size: 50,
+                              Image.asset(
+                                tool.icon,
+                                width: 64,
+                                height: 64,
                                 color: Colors.purple,
                               ),
                               const SizedBox(height: 8),
