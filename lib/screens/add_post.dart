@@ -111,29 +111,37 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   height: 200,
                 ),
               const SizedBox(height: 10), // Add some spacing to avoid overlap
-              ElevatedButton.icon(
-                  icon: const Icon(Icons.photo),
-                  label: const Text('Photo/video'),
-                  onPressed: _pickImage,
-                  style: ButtonStyle(
-                    foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                        (Set<WidgetState> states) {
-                      return Colors.white; // Text color when enabled
-                    }),
-                    minimumSize: WidgetStateProperty.all(
-                        Size(MediaQuery.of(context).size.width, 50)),
-                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            8.0), // Optional: You can adjust the shape
-                      ),
+              GestureDetector(
+                onTap: _pickImage,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Colors.blue, Colors.purple],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                    backgroundColor: WidgetStateProperty.all<Color>(
-                        Colors.purple), // Fallback color
-                    overlayColor: WidgetStateProperty.all<Color>(
-                        Colors.purple.shade700.withOpacity(
-                            0.8)), // Optional: You can add overlay color
-                  )),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.photo, color: Colors.white),
+                      SizedBox(width: 8),
+                      Text(
+                        'Photo/video',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -5,8 +5,24 @@ import 'package:test/widgets/BackGround.dart';
 import 'package:test/widgets/custom_text.dart';
 import 'package:test/widgets/custom_text_field.dart'; // Required for BackdropFilter
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController _textController = TextEditingController();
+  String? _selectedDepartment;
+  String? _selectedRole;
+  String? _selectedGender;
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,34 +68,92 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           // Logo
-                          Image.network(
-                            'https://via.placeholder.com/150', // Placeholder image for logo
-                            height: 50,
-                          ),
+
                           const SizedBox(height: 20),
                           // Gradient Text "Sign Up"
                           const CustomText(
-                            text: 'Sign Up',
+                            text: 'Register',
                           ),
                           const SizedBox(height: 10),
-                          // Login Prompt
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Already have an account? ',
-                                style: TextStyle(color: Colors.black),
+                          // Gender Dropdown
+                          DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Gender',
+                              fillColor: Colors.white.withOpacity(0.2),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  // Handle login navigation
-                                },
-                                child: const Text(
-                                  'Login',
-                                  style: TextStyle(color: Colors.blue),
-                                ),
+                              prefixIcon:
+                                  const Icon(Icons.person, color: Colors.black),
+                            ),
+                            items: <String>['male', 'female']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedGender = newValue!;
+                              });
+                            },
+                            value: _selectedGender,
+                          ),
+                          const SizedBox(height: 20),
+                          // Role Dropdown
+                          DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'User',
+                              fillColor: Colors.white.withOpacity(0.2),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            ],
+                              prefixIcon: const Icon(Icons.person_outline,
+                                  color: Colors.black),
+                            ),
+                            items: <String>['Student', 'Doctor', 'General']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedRole = newValue!;
+                              });
+                            },
+                            value: _selectedRole,
+                          ),
+                          const SizedBox(height: 20),
+                          // Department Dropdown
+                          DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Department',
+                              fillColor: Colors.white.withOpacity(0.2),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              prefixIcon:
+                                  const Icon(Icons.school, color: Colors.black),
+                            ),
+                            items: <String>['CS', 'AI', 'IS', 'SC']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedDepartment = newValue!;
+                              });
+                            },
+                            value: _selectedDepartment,
                           ),
                           const SizedBox(height: 20),
                           // First Name and Last Name Fields
@@ -139,23 +213,7 @@ class SignUpScreen extends StatelessWidget {
                             style: const TextStyle(
                                 color: Colors.black), // Text color
                           ),
-                          const SizedBox(height: 20),
-                          // Birth of date
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Birth of date',
-                              fillColor: Colors.white.withOpacity(
-                                  0.2), // Slightly transparent background for text field
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              prefixIcon: const Icon(Icons.calendar_today,
-                                  color: Colors.black),
-                            ),
-                            style: const TextStyle(
-                                color: Colors.black), // Text color
-                          ),
+
                           const SizedBox(height: 20),
                           // Phone Number
                           TextFormField(
@@ -179,6 +237,45 @@ class SignUpScreen extends StatelessWidget {
                                 color: Colors.black), // Text color
                           ),
                           const SizedBox(height: 20),
+                          // GPA and Level Fields
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    labelText: 'GPA',
+                                    fillColor: Colors.white.withOpacity(0.2),
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    prefixIcon: const Icon(Icons.grade,
+                                        color: Colors.black),
+                                  ),
+                                  style: const TextStyle(
+                                      color: Colors.black), // Text color
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    labelText: 'Level',
+                                    fillColor: Colors.white.withOpacity(0.2),
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    prefixIcon: const Icon(Icons.stars,
+                                        color: Colors.black),
+                                  ),
+                                  style: const TextStyle(
+                                      color: Colors.black), // Text color
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
                           // Password TextField
                           const CustomTextField(
                             // Custom Password TextField
@@ -195,15 +292,13 @@ class SignUpScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
                               backgroundColor: Colors.blueAccent,
-                              minimumSize: const Size(
-                                  double.infinity, 50), // Full-width button
+                              minimumSize: const Size.fromHeight(50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                             child: const Text('Register'),
                           ),
-                          const SizedBox(height: 20),
                         ],
                       ),
                     ),

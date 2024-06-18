@@ -98,8 +98,32 @@ class CommentsScreen extends StatelessWidget {
   }
 }
 
-class CommentInputField extends StatelessWidget {
+class CommentInputField extends StatefulWidget {
   const CommentInputField({super.key});
+
+  @override
+  _CommentInputFieldState createState() => _CommentInputFieldState();
+}
+
+class _CommentInputFieldState extends State<CommentInputField> {
+  final TextEditingController _controller = TextEditingController();
+  bool _isTextFieldNotEmpty = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      setState(() {
+        _isTextFieldNotEmpty = _controller.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +137,7 @@ class CommentInputField extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+                controller: _controller,
                 decoration: InputDecoration(
                   hintText: 'Write a comment...',
                   border: OutlineInputBorder(
@@ -121,11 +146,30 @@ class CommentInputField extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.send),
-              onPressed: () {
-                // Handle sending comment
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return _isTextFieldNotEmpty
+                    ? const LinearGradient(
+                        colors: [Colors.blue, Colors.purple],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds)
+                    : const LinearGradient(
+                        colors: [Colors.grey, Colors.grey],
+                      ).createShader(bounds);
               },
+              child: IconButton(
+                icon: const Icon(
+                  Icons.send,
+                  color: Colors.white,
+                ),
+                onPressed: _isTextFieldNotEmpty
+                    ? () {
+                        // Handle sending comment
+                        print('Send button pressed');
+                      }
+                    : null,
+              ),
             ),
           ],
         ),
@@ -189,14 +233,22 @@ class CommentCard extends StatelessWidget {
               Row(
                 children: [
                   TextButton.icon(
-                    icon: const Icon(Icons.thumb_up, size: 18),
+                    icon: Image.asset(
+                      'assets/like.png',
+                      width: 18,
+                      height: 18,
+                    ),
                     label: const Text('Like'),
                     onPressed: () {
                       // Handle Like action
                     },
                   ),
                   TextButton.icon(
-                    icon: const Icon(Icons.reply, size: 18),
+                    icon: Image.asset(
+                      'assets/reply.png',
+                      width: 18,
+                      height: 18,
+                    ),
                     label: const Text('Reply'),
                     onPressed: () {
                       // Handle Reply action

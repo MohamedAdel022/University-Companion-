@@ -56,7 +56,7 @@ class PostPage extends StatelessWidget {
   }
 }
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   final String author;
   final String content;
   final String time;
@@ -69,6 +69,19 @@ class PostCard extends StatelessWidget {
     required this.time,
     this.imageUrl,
   });
+
+  @override
+  _PostCardState createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  bool _isLiked = false;
+
+  void _toggleLike() {
+    setState(() {
+      _isLiked = !_isLiked;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +98,11 @@ class PostCard extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    child: Text(author[0]),
+                    child: Text(widget.author[0]),
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    author,
+                    widget.author,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -97,39 +110,52 @@ class PostCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    time,
+                    widget.time,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],
               ),
               const SizedBox(height: 10),
               Text(
-                content,
+                widget.content,
                 style: const TextStyle(fontSize: 14),
               ),
-              if (imageUrl != null) ...[
+              if (widget.imageUrl != null) ...[
                 const SizedBox(height: 10),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(imageUrl!),
+                  child: Image.network(widget.imageUrl!),
                 ),
               ],
               const SizedBox(height: 10),
               Row(
                 children: [
-                  const Icon(Icons.thumb_up, size: 20),
+                  GestureDetector(
+                    onTap: _toggleLike,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: _isLiked ? 25 : 20,
+                      height: _isLiked ? 25 : 20,
+                      child: Image.asset(
+                        'assets/like.png',
+                        color: _isLiked ? Colors.purple : Colors.grey,
+                      ),
+                    ),
+                  ),
                   const SizedBox(width: 5),
-                  const Text('3'),
+                  Text(_isLiked ? '4' : '3'),
                   const SizedBox(width: 20),
                   GestureDetector(
-                      onTap: () {
-                        // Navigate to Comments Page
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CommentsScreen();
-                        }));
-                      },
-                      child: const Icon(Icons.comment, size: 20)),
+                    onTap: () {
+                      // Navigate to Comments Page
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CommentsScreen();
+                      }));
+                    },
+                    child:
+                        Image.asset('assets/chat.png', width: 20, height: 20),
+                  ),
                   const SizedBox(width: 5),
                   const Text('4'),
                 ],
