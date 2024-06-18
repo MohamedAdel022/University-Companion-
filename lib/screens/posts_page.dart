@@ -24,20 +24,6 @@ class PostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('4 CS'),
-        actions: [
-          IconButton(
-            icon: Image.asset('assets/plus.png', width: 30, height: 30),
-            onPressed: () {
-              // Navigate to Add Post Screen
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const CreatePostPage();
-              }));
-            },
-          ),
-        ],
-      ),
       body: Stack(children: [
         const BackGround(),
         ListView.builder(
@@ -52,6 +38,15 @@ class PostPage extends StatelessWidget {
           },
         ),
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigate to Add Post Screen
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const CreatePostPage();
+          }));
+        },
+        child: Image.asset('assets/plus.png', width: 30, height: 30),
+      ),
     );
   }
 }

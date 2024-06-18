@@ -7,15 +7,22 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Stack(
         children: [
-          BackGround(), // Background gradient
-          RegisterForm(), // Form
-        
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Image.asset("assets/Ellipse 1.png"),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Image.asset("assets/Ellipse 2.png"),
+          ), // Background gradient
+          const RegisterForm(), // Form
         ],
       ),
     );
   }
 }
-
