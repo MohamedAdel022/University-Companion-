@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/screens/edit_profile_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -83,7 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 SizedBox(height: 16.0),
                 Text(
-                  'Account Name', // Replace with the actual account name
+                  'Mohamed Adel', // Replace with the actual account name
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -100,6 +101,9 @@ class _SettingsPageState extends State<SettingsPage> {
             title: const Text('Edit Profile'),
             onTap: () {
               // Navigate to edit profile photo page
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const EditProfilePage();
+              }));
             },
           ),
           const Divider(),
