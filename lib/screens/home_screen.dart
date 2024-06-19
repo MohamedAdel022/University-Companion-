@@ -4,6 +4,7 @@ import 'package:test/screens/bots_screen.dart';
 import 'package:test/screens/chat_page.dart';
 import 'package:test/screens/courses_screen.dart';
 import 'package:test/screens/posts_page.dart';
+import 'package:test/screens/settings.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -20,8 +21,8 @@ class _MyHomePageState extends State<MyHomePage> {
     PostPage(),
     const ChatPage(),
     BotsScreen(),
-    CoursesPage(),
-    const ScreenPage(color: Colors.orange, text: 'Screen 5'),
+    const CoursesPage(),
+    const SettingsPage(),
   ];
 
   void _onPageChanged(int index) {
@@ -66,26 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
         controller: _pageController,
         onPageChanged: _onPageChanged,
         children: _pages,
-      ),
-    );
-  }
-}
-
-class ScreenPage extends StatelessWidget {
-  final Color color;
-  final String text;
-
-  const ScreenPage({super.key, required this.color, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: color,
-      body: Center(
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 30, color: Colors.white),
-        ),
       ),
     );
   }
