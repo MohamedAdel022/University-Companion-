@@ -29,6 +29,7 @@ class CourseDetailPage extends StatelessWidget {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(name),
+              titlePadding: const EdgeInsets.only(left: 40, bottom: 16),
               background: Image.network(
                 imageUrl,
                 fit: BoxFit.cover,
@@ -44,28 +45,6 @@ class CourseDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Icon(Icons.star, color: Colors.yellow, size: 20),
-                            SizedBox(width: 4),
-                            Text('5.0', style: TextStyle(fontSize: 16)),
-                            Spacer(),
-                            Text('5h 15m', style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
-                        SizedBox(height: 16),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://via.placeholder.com/150'),
-                              radius: 20,
-                            ),
-                            SizedBox(width: 8),
-                            Text('Ardy Gunawan',
-                                style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
                         SizedBox(height: 24),
                         Text(
                           'Course Content',
@@ -75,8 +54,12 @@ class CourseDetailPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 8),
-                        Text('30 Videos', style: TextStyle(fontSize: 16)),
+                        Text('30 lecture',
+                            style: TextStyle(
+                              fontSize: 16,
+                            )),
                         SizedBox(height: 16),
+                        Divider(),
                       ],
                     ),
                   );

@@ -26,6 +26,7 @@ class CoursesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
             colors: [Colors.blue, Colors.purpleAccent],
@@ -33,7 +34,7 @@ class CoursesPage extends StatelessWidget {
             end: Alignment.centerRight,
           ).createShader(bounds),
           child: const Text(
-            'Courses',
+            'Your Courses',
             style: TextStyle(color: Colors.white),
           ),
         ),
