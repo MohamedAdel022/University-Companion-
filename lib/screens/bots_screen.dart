@@ -74,7 +74,10 @@ class BotsScreen extends StatelessWidget {
           children: [
             const Text(
               'Elite Tools',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurpleAccent),
             ),
             const SizedBox(height: 16),
             SizedBox(
@@ -151,9 +154,23 @@ class BotsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            const Text(
-              'My History',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                const Text(
+                  'Recent Conversations',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurpleAccent),
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.history, color: Colors.purple),
+                  onPressed: () {
+                    // Clear history
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Expanded(
