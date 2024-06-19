@@ -54,7 +54,16 @@ class BotsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat & Ask'),
+        title: ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+                  colors: [Colors.blue, Colors.purpleAccent],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ).createShader(bounds),
+            child: const Text(
+              'Chat & Ask',
+              style: TextStyle(color: Colors.white),
+            )),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -104,11 +113,14 @@ class BotsScreen extends StatelessWidget {
                                     colors: [Colors.white, Colors.purple],
                                   ).createShader(bounds);
                                 },
-                                child: Image.asset(
-                                  tool.icon,
-                                  width: 64,
-                                  height: 64,
-                                  color: Colors.purple,
+                                child: Hero(
+                                  tag: tool.icon,
+                                  child: Image.asset(
+                                    tool.icon,
+                                    width: 64,
+                                    height: 64,
+                                    color: Colors.purple,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 8),

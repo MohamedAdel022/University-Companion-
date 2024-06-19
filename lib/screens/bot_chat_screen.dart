@@ -105,7 +105,9 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(widget.icon, width: 20, height: 20),
+            Hero(
+                tag: widget.icon,
+                child: Image.asset(widget.icon, width: 20, height: 20)),
             const SizedBox(width: 12),
             Text(widget.name),
           ],
