@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:test/screens/course_detail_page.dart';
 
-class CoursesPage extends StatelessWidget {
+class CoursesPage extends StatefulWidget {
+  const CoursesPage({super.key});
+
+  @override
+  _CoursesPageState createState() => _CoursesPageState();
+}
+
+class _CoursesPageState extends State<CoursesPage>
+    with TickerProviderStateMixin {
   final List<Map<String, String>> courses = [
     {
       'name': 'Flutter Development',
@@ -20,7 +28,42 @@ class CoursesPage extends StatelessWidget {
     },
   ];
 
-  CoursesPage({super.key});
+  late List<AnimationController> _controllers;
+  late List<Animation<double>> _animations;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllers = List.generate(
+      courses.length,
+      (index) => AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+      ),
+    );
+    _animations = _controllers
+        .map((controller) => CurvedAnimation(
+              parent: controller,
+              curve: Curves.easeIn,
+            ))
+        .toList();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      for (int i = 0; i < _controllers.length; i++) {
+        Future.delayed(Duration(milliseconds: 100 * i), () {
+          _controllers[i].forward();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,18 +95,21 @@ class CoursesPage extends StatelessWidget {
           itemCount: courses.length,
           itemBuilder: (context, index) {
             final course = courses[index];
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return CourseDetailPage(
-                    name: course['name']!,
-                    imageUrl: course['imageUrl']!,
-                  );
-                }));
-              },
-              child: CourseCard(
-                name: course['name']!,
-                imageUrl: course['imageUrl']!,
+            return FadeTransition(
+              opacity: _animations[index],
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CourseDetailPage(
+                      name: course['name']!,
+                      imageUrl: course['imageUrl']!,
+                    );
+                  }));
+                },
+                child: CourseCard(
+                  name: course['name']!,
+                  imageUrl: course['imageUrl']!,
+                ),
               ),
             );
           },

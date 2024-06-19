@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             bottom: 0,
             right: 0,
             child: Image.asset("assets/Ellipse 2.png"),
-          ), // Background gradient
+          ), 
           const RegisterForm(), // Form
         ],
       ),
