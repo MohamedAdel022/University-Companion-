@@ -24,26 +24,45 @@ class PostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        const BackGround(),
-        ListView.builder(
-          itemCount: posts.length,
-          itemBuilder: (context, index) {
-            return PostCard(
-              author: posts[index]['author']!,
-              content: posts[index]['content']!,
-              time: posts[index]['time']!,
-              imageUrl: posts[index]['imageUrl'],
-            );
-          },
-        ),
-      ]),
+      body: Stack(
+        children: [
+          const BackGround(),
+          ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              return PostCard(
+                author: posts[index]['author']!,
+                content: posts[index]['content']!,
+                time: posts[index]['time']!,
+                imageUrl: posts[index]['imageUrl'],
+              );
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to Add Post Screen
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const CreatePostPage();
-          }));
+          // Navigate to Add Post Screen with a custom transition
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const CreatePostPage(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
+
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              ));
         },
         child: Image.asset('assets/plus.png', width: 30, height: 30),
       ),

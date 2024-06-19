@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:test/screens/bots_screen.dart';
 import 'package:test/screens/chat_page.dart';
+import 'package:test/screens/courses_screen.dart';
 import 'package:test/screens/posts_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
     PostPage(),
     const ChatPage(),
     BotsScreen(),
-    const ScreenPage(color: Colors.orange, text: 'Screen 4'),
+    CoursesPage(),
     const ScreenPage(color: Colors.orange, text: 'Screen 5'),
   ];
 
