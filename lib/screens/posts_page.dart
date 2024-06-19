@@ -15,7 +15,7 @@ class PostPage extends StatelessWidget {
       'author': 'Yousef Ali',
       'content': 'Project discussion schedule attached.',
       'time': '0:54 AM',
-      'imageUrl': 'https://via.placeholder.com/300x200'
+      'imageUrl': 'https://via.placeholder.com/500x1200'
     },
   ];
 

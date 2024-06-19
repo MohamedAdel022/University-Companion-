@@ -9,6 +9,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _isDarkMode = false;
+  bool _getNotifications = true;
 
   void _toggleTheme(bool value) {
     setState(() {
@@ -22,6 +23,13 @@ class _SettingsPageState extends State<SettingsPage> {
       // Enable light mode
       _setLightMode(context);
     }
+  }
+
+  void _toggleNotifications(bool value) {
+    setState(() {
+      _getNotifications = value;
+    });
+    // Handle notifications setting change here
   }
 
   void _setDarkMode(BuildContext context) {
@@ -89,7 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   32.0), // Add some spacing between the profile section and the settings list
           ListTile(
             leading: const Icon(Icons.edit),
-            title: const Text('Edit Profile Photo'),
+            title: const Text('Edit Profile'),
             onTap: () {
               // Navigate to edit profile photo page
             },
@@ -97,7 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.color_lens),
-            title: const Text('Change Theme'),
+            title: const Text('Dark Mode'),
             trailing: Switch(
               value: _isDarkMode,
               onChanged: (value) {
@@ -115,24 +123,19 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Change Name'),
-            onTap: () {
-              // Navigate to change name page
-            },
-          ),
-          const Divider(),
-          ListTile(
             leading: const Icon(Icons.notifications),
             title: const Text('Get Notifications'),
-            onTap: () {
-              // Navigate to notifications settings page
-            },
+            trailing: Switch(
+              value: _getNotifications,
+              onChanged: (value) {
+                _toggleNotifications(value);
+              },
+            ),
           ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text('Log Out'),
+            title: const Text('Log Out', style: TextStyle(color: Colors.red)),
             onTap: () {
               // Handle log out
             },
