@@ -21,37 +21,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      File? croppedImage = await _cropImage(image.path);
-      setState(() {
-        _profileImage = croppedImage;
-      });
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        File? croppedImage = await _cropImage(image.path);
+        setState(() {
+          _profileImage = croppedImage;
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+      // Show error to the user
+      _showErrorDialog('Error picking image. Please try again.');
     }
   }
 
   Future<File?> _cropImage(String imagePath) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: imagePath,
-      aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
-      uiSettings: [
-        AndroidUiSettings(
-          toolbarTitle: 'Crop Image',
-          toolbarColor: Colors.deepOrange,
-          toolbarWidgetColor: Colors.white,
-          activeControlsWidgetColor: Colors.deepOrange,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false,
-        ),
-        IOSUiSettings(
-          title: 'Crop Image',
-          minimumAspectRatio: 1.0,
-        ),
-      ],
-    );
+    try {
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+        sourcePath: imagePath,
+        aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Crop Image',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            activeControlsWidgetColor: Colors.deepOrange,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false,
+          ),
+          IOSUiSettings(
+            title: 'Crop Image',
+            minimumAspectRatio: 1.0,
+          ),
+        ],
+      );
 
-    if (croppedFile != null) {
-      return File(croppedFile.path);
+      if (croppedFile != null) {
+        return File(croppedFile.path);
+      }
+    } catch (e) {
+      print('Error cropping image: $e');
+      // Show error to the user
+      _showErrorDialog('Error cropping image. Please try again.');
     }
     return null;
   }
@@ -63,6 +75,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
     print('Current Password: ${_currentPasswordController.text}');
     print('New Password: ${_newPasswordController.text}');
     // Implement your save logic
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override

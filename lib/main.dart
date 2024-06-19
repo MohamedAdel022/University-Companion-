@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:test/screens/login_screen.dart';
 import 'package:test/screens/sign_up.dart';
 
-// Required for BackdropFilter
+
 
 void main() {
   runApp(const MyApp());
